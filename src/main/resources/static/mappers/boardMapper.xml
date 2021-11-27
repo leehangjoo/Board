@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.ac.inhatc.mapper.BoardMapper">
+	<select resultType="String" id="getName">
+		select member from test 
+	</select>
+	
+	<select resultType="hashmap" id="selectSubjectList"
+		parameterType="hashmap">
+		SELECT
+			ID, TITLE, AUTHOR, PRICE
+		FROM SAMPLE
+		WHERE 1=1
+		<if test="value != null and value != ''"> AND title LIKE CONCAT('%',#{keyword} ,'%') </if>
+		LIMIT #{page},10
+
+	</select>
+	
+	<select resultType="int" id="selectSubjectListCount"
+		parameterType="String">
+		SELECT
+			COUNT(ID)
+		FROM
+		SAMPLE
+		WHERE 1=1
+		<if test="value != null and value != ''"> AND title LIKE CONCAT('%',#{value} ,'%') </if>
+		
+	</select>
+	
+	<select resultType="hashmap" id="selectSubjectList2"
+		parameterType="String">
+		SELECT
+		ID id, TITLE title, PRICE price
+		FROM
+		SAMPLE
+		WHERE 1=1
+		<if test="value != null and value != ''"> AND title LIKE CONCAT('%',#{value} ,'%') </if>
+
+	</select>
+	<select resultType="hashmap" id="selectSubjectOne"
+		parameterType="String">
+		SELECT
+		ID, TITLE, AUTHOR, PRICE
+		FROM SAMPLE
+		WHERE ID=#{value} </select>
+	<insert id="insertSubject">
+		INSERT INTO SAMPLE
+		(TITLE, AUTHOR, PRICE)
+		VALUES
+		(#{title},#{author},#{price})
+	</insert>
+	<select id ="selectDetail" parameterType="String" resultType="hashmap">
+	SELECT
+		ID, TITLE, AUTHOR, PRICE
+		FROM SAMPLE
+		WHERE ID=#{value}
+	</select>
+	<update id="modifySubject" parameterType="Map">
+		UPDATE SAMPLE
+		SET
+			TITLE = #{title},
+			AUTHOR = #{author},
+			PRICE = #{price}
+		WHERE
+			ID = #{id}	
+	</update>
+	<delete id="deleteSubject"  parameterType="String">
+		DELETE FROM SAMPLE
+		 WHERE   ID = #{value}
+	</delete>
+	
+</mapper>
