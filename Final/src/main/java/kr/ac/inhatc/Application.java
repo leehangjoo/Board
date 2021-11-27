@@ -1,13 +1,15 @@
-package kr.ac.inhatc.mvc;
+package kr.ac.inhatc;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FinalApplication {
+@MapperScan(value = {"kr.ac.inhatc.mapper"})
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FinalApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 
 }
